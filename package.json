@@ -1,0 +1,26 @@
+{
+  "name": "@ldshape/chat",
+  "version": "1.0.0",
+  "description": "A Shape for Chat messages.",
+  "keywords": [
+    "chat",
+    "linked-data",
+    "solid"
+  ],
+  "author": "Jackson Morgan",
+  "license": "MIT",
+  "main": "./index.js",
+  "dependencies": {
+    "@ldo/ldo": "^0.0.1-alpha.29"
+  },
+  "devDependencies": {
+    "@ldo/cli": "^0.0.1-alpha.29",
+    "@types/jsonld": "^1.5.15",
+    "@types/shexj": "^2.1.7"
+  },
+  "scripts": {
+    "build:ldo": "ldo build --input .shapes --output .ldo",
+    "prepublish": "npm run build:ldo & npm run generate-readme",
+    "genenerate-readme": "ldo generate-readme --project ./ --shapes ./.shapes --ldo ./.ldo"
+  }
+}

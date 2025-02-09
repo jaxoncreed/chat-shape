@@ -1,0 +1,40 @@
+PREFIX srs: <https://shaperepo.com/schemas/chat#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX meeting: <http://www.w3.org/ns/pim/meeting#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX flow: <http://www.w3.org/2005/01/wf/flow#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sioc: <http://rdfs.org/sioc/ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX ic: <http://www.w3.org/2002/12/cal/ical#>
+PREFIX schema: <http://schema.org/>
+
+srs:ChatShape EXTRA a {
+  a [ meeting:LongChat ];
+  dc:author IRI;
+  dc:title xsd:string;
+  flow:message @srs:ChatMessageShape *;
+  flow:participation @srs:ChatParticipationShape *;
+}
+
+srs:ChatMessageShape {
+  dct:created xsd:dateTime;
+  sioc:content xsd:string;
+  foaf:maker IRI;
+  dct:isReplacedBy @srs:ChatMessageShape ?;
+  schema:dateDeleted xsd:dateTime ?;
+  sioc:has_reply @srs:ChatMessageShape *;
+}
+
+srs:ChatParticipationShape {
+  ic:dtstart xsd:dateTime;
+  flow:participant IRI;
+}
+
+srs:ChatActionShape {
+  a [ schema:Action ];
+  schema:agent IRI;
+  sioc:content xsd:string;
+  schema:target @srs:ChatMessageShape;
+}
